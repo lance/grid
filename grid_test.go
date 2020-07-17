@@ -8,7 +8,9 @@ import (
 	"github.com/boson-project/grid"
 )
 
-func StartGrid() (g *grid.Grid, err error) {
+func StartGrid(t *testing.T) (g *grid.Grid, err error) {
+	t.Helper()
+
 	listening := make(chan bool)
 	errCh := make(chan error)
 
@@ -47,7 +49,7 @@ func TestStart(t *testing.T) {
 
 // TestVersion ensures that the /v1/version endpoint returns the version structure.
 func TestVersion(t *testing.T) {
-	g, err := StartGrid()
+	g, err := StartGrid(t)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -62,7 +64,7 @@ func TestVersion(t *testing.T) {
 }
 
 func TestEventsEndpointAvailable(t *testing.T) {
-	g, err := StartGrid()
+	g, err := StartGrid(t)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +79,7 @@ func TestEventsEndpointAvailable(t *testing.T) {
 }
 
 func TestSubscriptionsEndpointAvailable(t *testing.T) {
-	g, err := StartGrid()
+	g, err := StartGrid(t)
 	if err != nil {
 		t.Fatal(err)
 	}
